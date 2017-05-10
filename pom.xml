@@ -22,7 +22,6 @@
     <module>food-message</module>
     <module>food-pay</module>
     <module>cancle</module>
-    <module>war</module>
     <module>dish-war</module>
   </modules>
 </project>
