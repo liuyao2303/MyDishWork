@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class UserInfo {
 
     @Id
-    @GenericGenerator(name = "key",strategy = "hilo")
+    @GenericGenerator(name = "key",strategy = "identity")
     @GeneratedValue(generator = "key")
     private Integer id;
 
