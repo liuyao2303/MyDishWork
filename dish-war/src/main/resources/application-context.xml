@@ -34,5 +34,9 @@
         <property name="maxWaitMillis" value="1800"></property>
     </bean>
 
-    <bean id="sessionFactory" class="org.springframework."
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="annotatedPackages" value="com.liuyao.dmo"></property>
+        <property name="dataSource" ref="datasource"/>
+        <property name="configLocation" value=""/>
+    </bean>
 </beans>
