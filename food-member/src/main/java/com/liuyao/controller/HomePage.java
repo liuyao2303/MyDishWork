@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(name = "/")
 public class HomePage {
 
-    @RequestMapping("index")
+    @RequestMapping("")
     public ModelAndView home() {
 
         ModelAndView mv = new ModelAndView();
