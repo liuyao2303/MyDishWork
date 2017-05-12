@@ -1,6 +1,8 @@
 package com.liuyao.dmo;
 
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 
@@ -9,12 +11,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "user_info")
-public class UserInfo {
+public class UserInfoDmo {
 
     @Id
     @GenericGenerator(name = "key",strategy = "identity")
     @GeneratedValue(generator = "key")
-    private Integer id;
+    @Column(name = "user_id")
+    private Integer userId;
 
     @Column(name = "user_name")
     private String userName;
@@ -34,12 +37,12 @@ public class UserInfo {
     @Column(name = "status")
     private String status;
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {

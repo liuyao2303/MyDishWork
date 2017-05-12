@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
     http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
     ">
     <!-- 自动扫描web包 ,将带有注解的类 纳入spring容器管理 -->
     <context:component-scan base-package="com.liuyao"></context:component-scan>
 
-    <aop:config></aop:config>
+    <aop:config/>
 
     <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
 
@@ -35,8 +37,45 @@
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="annotatedPackages" value="com.liuyao.dmo"></property>
+
+        <!-- annotatedClasses用来列出所有持久化的类，类名
+        <property name="annotatedClasses" value=""></property>  -->
+
+
+        <!-- 用来定义hibernate属性-->
+        <property name="hibernateProperties" >
+            <props>
+                <prop key="format_sql">true</prop>
+                <prop key="connection.autocommit">false</prop>
+                <prop key="show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57InnoDBDialect</prop>
+            </props>
+        </property>
+
+
+        <!-- 根据文件一个一个加载hbm类与sql的映射关系
+        <property name="mappingLocations" value="classpath:"></property>-->
+
+
+        <!-- annotatedPackages 把制定的包名内部的类全部加载进来
+        <property name="annotatedPackages" value="com.liuyao.dmo"/>-->
+
+        <!-- 数据源属性 -->
         <property name="dataSource" ref="datasource"/>
-        <property name="configLocation" value=""/>
+        <!-- 配置文件
+        <property name="configLocation" value=""/>-->
+        <!-- 多项配置文件
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>-->
+        <!-- 类似于annotated-->
+        <property name="packagesToScan" value="com.liuyao.dmo"/>
     </bean>
+
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
 </beans>
