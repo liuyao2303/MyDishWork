@@ -18,6 +18,12 @@
 
     <context:component-scan base-package="com.liuyao.controller"></context:component-scan>
 
+    <!-- 上传文件解析器 -->
+    <beans:bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <beans:property name="maxUploadSize" value="10485670" /> <!-- 10M -->
+    </beans:bean>
+
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <resources mapping="/resources/**" location="/resources/" />
 

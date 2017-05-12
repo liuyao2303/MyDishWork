@@ -16,6 +16,22 @@ public class HomePage {
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("home");
+        UserInfoDto ui = new UserInfoDto();
+        ui.setUserName("liuyao");
+        ui.setAddr("南京市新模范马路66号，南京邮电大学");
+        ui.setAge(24);
+        ui.setSex("11");
+        ui.setPhoneNumber("18252063065");
+        userInfoService.addUser(ui);
+        return mv;
+    }
+
+    @RequestMapping("userList")
+    public ModelAndView userList() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("userList");
+        UserInfoDto user = userInfoService.loadUserInfo(2);
+        mv.addObject("user",user);
         return mv;
     }
 }
