@@ -19,7 +19,7 @@
 
     <bean id="datasource" class="org.apache.commons.dbcp2.BasicDataSource">
         <!-- 数据连接信息 -->
-        <property name="url" value="${jdbcUrlliuyao}"></property>
+        <property name="url" value="${jdbcUri}"></property>
         <property name="driverClassName" value="${driverClass}"></property>
         <property name="username" value="${user}"></property>
         <property name="password" value="${password}"></property>

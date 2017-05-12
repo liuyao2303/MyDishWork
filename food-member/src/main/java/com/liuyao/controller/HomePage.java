@@ -1,5 +1,8 @@
 package com.liuyao.controller;
 
+import com.liuyao.dto.UserInfoDto;
+import com.liuyao.service.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,7 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(name = "/")
 public class HomePage {
 
-    @RequestMapping("")
+    @Autowired
+    private UserInfoService userInfoService;
+
+    @RequestMapping("/add")
     public ModelAndView home() {
 
         ModelAndView mv = new ModelAndView();
@@ -26,7 +32,7 @@ public class HomePage {
         return mv;
     }
 
-    @RequestMapping("userList")
+    @RequestMapping("")
     public ModelAndView userList() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("userList");
