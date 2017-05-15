@@ -17,7 +17,7 @@ public class HomePage {
     @Autowired
     private UserInfoService userInfoService;
 
-    @RequestMapping("index")
+    @RequestMapping("/add")
     public ModelAndView home() {
 
         ModelAndView mv = new ModelAndView();
@@ -32,7 +32,7 @@ public class HomePage {
         return mv;
     }
 
-    @RequestMapping("userList")
+    @RequestMapping("")
     public ModelAndView userList() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("userList");
