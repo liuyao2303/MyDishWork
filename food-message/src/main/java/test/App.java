@@ -1,4 +1,4 @@
-package jar;
+package test;
 
 /**
  * Hello world!
