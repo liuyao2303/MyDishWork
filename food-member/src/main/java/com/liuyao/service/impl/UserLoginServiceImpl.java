@@ -1,0 +1,61 @@
+package com.liuyao.service.impl;
+
+import com.liuyao.constant.Result;
+import com.liuyao.dao.intf.UserInfoDao;
+import com.liuyao.dao.intf.UserLoginDao;
+import com.liuyao.dmo.UserInfoDmo;
+import com.liuyao.dmo.UserLoginDmo;
+import com.liuyao.dto.UserLoginDto;
+import com.liuyao.service.intf.UserInfoService;
+import com.liuyao.service.intf.UserLoginService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Created by xiaoliu on 2017/5/16.
+ */
+@Component
+public class UserLoginServiceImpl implements UserLoginService{
+
+    @Autowired
+    private UserLoginDao userLoginDao;
+
+    @Autowired
+    private UserInfoDao userInfoDao;
+
+    /* 根据用户的手机号和密码来验证用户的身份信息 */
+    @Transactional
+    public Result loginCheck(String phone,String password) {
+        UserInfoDmo dmo = userInfoDao.getUserInfo("phoneNumber",phone);    //根据电话号码来查询用户的账户信息
+        UserLoginDmo login = userLoginDao.getUserLoginInfo(dmo.getUserId());
+        if(login == null) {
+            return new Result(false,"phone is wrone!");
+        }else if(login.getPassword().equals(password)) {
+            return new Result(true,"login success!");
+        }else {
+            return new Result(false,"password incorrect!");
+        }
+    }
+
+    /* 插入用户的账户信息 */
+    @Transactional
+    public Long addUserLoginInfo(UserLoginDto userLogin) {
+        UserLoginDmo loginDmo = new UserLoginDmo();
+        BeanUtils.copyProperties(userLogin,loginDmo);
+        return userLoginDao.addUserLoginInfo(loginDmo);
+    }
+
+    @Transactional
+    public UserLoginDto getUserLoginInfo(Long userId) {
+        UserLoginDto dto = new UserLoginDto();
+        UserLoginDmo dmo = userLoginDao.getUserLoginInfo(userId);
+        if(dmo == null) {
+            return null;
+        }
+        BeanUtils.copyProperties(dmo,dto);
+        return dto;
+    }
+
+}

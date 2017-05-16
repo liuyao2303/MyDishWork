@@ -31,14 +31,6 @@ public class UserInfoServiceImpl implements UserInfoService{
         return userInfoDao.insert(userDmo);
     }
 
-    /* 插入用户的账户信息 */
-    @Transactional
-    public Long addUserLoginInfo(UserLoginDto userLogin) {
-        UserLoginDmo loginDmo = new UserLoginDmo();
-        BeanUtils.copyProperties(userLogin,loginDmo);
-        return userInfoDao.addUserLoginInfo(loginDmo);
-    }
-
     @Transactional
     public UserInfoDto getUserInfo(Long userId) {
         UserInfoDmo dmo = userInfoDao.getUserInfo(userId);
@@ -46,6 +38,16 @@ public class UserInfoServiceImpl implements UserInfoService{
         BeanUtils.copyProperties(dmo,dto);
         return dto;
     }
+
+    /*  根据用户的电话号码查询用户的账户信息 */
+    @Transactional
+    public UserInfoDto getUserInfo(String phone) {
+        UserInfoDmo dmo = userInfoDao.getUserInfo("phoneNumber",phone);
+        UserInfoDto dto = new UserInfoDto();
+        BeanUtils.copyProperties(dmo,dto);
+        return dto;
+    }
+
     @Transactional
     public List<UserInfoDto> getAllUserInfo() {
         List<UserInfoDto> dtoList = new ArrayList();
@@ -56,17 +58,6 @@ public class UserInfoServiceImpl implements UserInfoService{
             dtoList.add(dto);
         }
         return dtoList;
-    }
-
-    @Transactional
-    public UserLoginDto getUserLoginInfo(Long userId) {
-        UserLoginDto dto = new UserLoginDto();
-        UserLoginDmo dmo = userInfoDao.getUserLoginInfo(userId);
-        if(dmo == null) {
-            return null;
-        }
-        BeanUtils.copyProperties(dmo,dto);
-        return dto;
     }
 
     @Transactional

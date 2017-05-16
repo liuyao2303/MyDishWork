@@ -67,4 +67,17 @@ public class UserInfoDto {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfoDto{" +
+                "userId=" + userId +
+                ", addr='" + addr + '\'' +
+                ", age=" + age +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", sex='" + sex + '\'' +
+                ", userName='" + userName + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

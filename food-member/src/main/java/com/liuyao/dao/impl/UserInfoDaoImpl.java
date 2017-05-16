@@ -32,37 +32,30 @@ public class UserInfoDaoImpl implements UserInfoDao {
         return  (UserInfoDmo) sf.getCurrentSession().load(UserInfoDmo.class,userId);
     }
 
-    public Long addUserLoginInfo(UserLoginDmo loginDmo) {
-
-        return (Long) sf.getCurrentSession().save(loginDmo);
-    }
-
     public UserInfoDmo getUserInfo(Long userId) {
         Session ss = sf.getCurrentSession();
         return (UserInfoDmo) ss.load(UserInfoDmo.class,userId);
     }
 
-    /* 查询用户信息列表 */
-    public List<UserInfoDmo> getUserInfoList() {
-        return null;
+    /* 根据相关属性查询用户的实体 */
+    public UserInfoDmo getUserInfo(String propertyName, Object arg) {
+        Session ss = sf.getCurrentSession();
+        Criteria c = ss.createCriteria(UserInfoDmo.class);
+        c.add(Restrictions.eq(propertyName,arg));
+        List<UserInfoDmo> dmos =  c.list();
+        if(dmos.size() <= 0) {
+            return null;
+        }else {
+            return dmos.get(0);
+        }
     }
 
-    /* 根据用户id，查询用户的登陆信息表 */
-    public UserLoginDmo getUserLoginInfo(Long userId) {
-        try {
-            Session ss = sf.getCurrentSession();
-            Criteria c = ss.createCriteria(UserLoginDmo.class);
-            c.add(Restrictions.eq("userId",userId));
-            List r = c.list();
-            if(r.size() < 1) {
-                return null;
-            }else {
-                UserLoginDmo dmo = (UserLoginDmo) r.get(0);
-                return dmo;
-            }
-        }catch (Exception e) {
-            return null;
-        }
+    /* 查询用户信息列表 */
+    public List<UserInfoDmo> getUserInfoList() {
+        Session ss = sf.getCurrentSession();
+        List<UserInfoDmo> r = ss.createQuery("select U from UserInfoDmo U").list();
+
+        return r;
     }
 
     public int updateUserInfoStatus(long userId, String status) {

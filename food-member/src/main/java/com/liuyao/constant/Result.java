@@ -54,4 +54,13 @@ public class Result implements Serializable{
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "success=" + success +
+                ", code=" + code +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 }

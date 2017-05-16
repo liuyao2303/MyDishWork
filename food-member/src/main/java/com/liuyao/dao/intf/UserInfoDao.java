@@ -13,13 +13,11 @@ public interface UserInfoDao {
 
     public UserInfoDmo get(int userId) ;
 
-    public Long addUserLoginInfo(UserLoginDmo loginDmo) ;
-
     public UserInfoDmo getUserInfo(Long userId) ;
 
-    public List<UserInfoDmo> getUserInfoList() ;
+    public UserInfoDmo getUserInfo(String propertyName,Object arg);
 
-    public UserLoginDmo getUserLoginInfo(Long userId) ;
+    public List<UserInfoDmo> getUserInfoList() ;
 
     public int updateUserInfoStatus(long userId, String status) ;
 

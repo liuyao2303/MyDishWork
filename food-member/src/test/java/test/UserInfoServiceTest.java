@@ -6,12 +6,15 @@ import com.liuyao.dmo.UserInfoDmo;
 import com.liuyao.dto.UserInfoDto;
 import com.liuyao.dto.UserLoginDto;
 import com.liuyao.service.intf.UserInfoService;
+import com.liuyao.service.intf.UserLoginService;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 /**
  * Created by xiaoliu on 2017/5/16.
@@ -22,6 +25,9 @@ public class UserInfoServiceTest {
 
     @Autowired
     private UserInfoService userInfoService;
+
+    @Autowired
+    private UserLoginService userLoginService;
 
     public void setUp() {
 
@@ -37,11 +43,6 @@ public class UserInfoServiceTest {
          System.out.println(i);
     }
 
-    @org.junit.Test
-    public void getUserLoginInfo() {
-        UserLoginDto dto = userInfoService.getUserLoginInfo(5L);
-        System.out.println(dto);
-    }
 
     @org.junit.Test
     public void testAddNewUser() {
@@ -60,7 +61,15 @@ public class UserInfoServiceTest {
         login.setPassword("sdsdsdsd");
         login.setOpenId(245244354343L);
         login.setUserId(userId);
-        userInfoService.addUserLoginInfo(login);
+        userLoginService.addUserLoginInfo(login);
+    }
+
+    @org.junit.Test
+    public void getAllUserInfo() {
+        List<UserInfoDto> users = userInfoService.getAllUserInfo();
+        for(UserInfoDto dto : users) {
+            System.out.println(dto);
+        }
     }
 
 }

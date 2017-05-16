@@ -10,14 +10,13 @@ public interface UserInfoService {
     /* 添加接口 */
     public Long addUserInfo(UserInfoDto user);
 
-    public Long addUserLoginInfo(UserLoginDto userLogin);
-
     /* 查询接口 */
     public UserInfoDto getUserInfo(Long userId) ;
 
-    public List<UserInfoDto> getAllUserInfo();
+    /* 根据用户电话号码查询用户账户信息 */
+    public UserInfoDto getUserInfo(String phone) ;
 
-    public UserLoginDto getUserLoginInfo(Long userId) ;
+    public List<UserInfoDto> getAllUserInfo();
 
     public int updateUserInfoStatus(long userId, String status) ;
 
