@@ -1,10 +1,11 @@
 package com.liuyao.dmo;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
 import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by xiaoliu on 2017/5/11.
@@ -17,7 +18,7 @@ public class UserInfoDmo {
     @GenericGenerator(name = "key",strategy = "identity")
     @GeneratedValue(generator = "key")
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     @Column(name = "user_name")
     private String userName;
@@ -37,11 +38,23 @@ public class UserInfoDmo {
     @Column(name = "status")
     private String status;
 
-    public Integer getUserId() {
+    @OneToOne(targetEntity = UserLoginDmo.class)
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
+    private UserLoginDmo userLoginDmo;
+
+    public UserLoginDmo getUserLoginDmo() {
+        return userLoginDmo;
+    }
+
+    public void setUserLoginDmo(UserLoginDmo userLoginDmo) {
+        this.userLoginDmo = userLoginDmo;
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

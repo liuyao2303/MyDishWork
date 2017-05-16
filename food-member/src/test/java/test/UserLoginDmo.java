@@ -1,8 +1,9 @@
 package test;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 /**
  * Created by xiaoliu on 2017/5/15.
@@ -17,10 +18,10 @@ public class UserLoginDmo {
     @Column(name = "id")
     private Integer id;
 
-
-    @OneToOne(targetEntity = UserInfoDmo.class)
-    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
-    private UserInfoDmo userInfoDmo;
+//    @OneToOne(targetEntity = UserInfoDmo.class)
+//    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
+//    @org.hibernate.annotations.ForeignKey(name = "null")
+//    private UserInfoDmo userInfoDmo;
 
     @Column(name = "password",length = 128,nullable = false)
     private String password;
@@ -30,6 +31,14 @@ public class UserLoginDmo {
 
     @Column(name = "status",length = 2, nullable = false)
     private String status;
+
+//    public UserInfoDmo getUserInfoDmo() {
+//        return userInfoDmo;
+//    }
+//
+//    public void setUserInfoDmo(UserInfoDmo userInfoDmo) {
+//        this.userInfoDmo = userInfoDmo;
+//    }
 
     public Integer getId() {
         return id;
@@ -61,5 +70,16 @@ public class UserLoginDmo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "UserLoginDmo{" +
+                "id=" + id +
+//                ", userInfoDmo=" + userInfoDmo +
+                ", password='" + password + '\'' +
+                ", openId=" + openId +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

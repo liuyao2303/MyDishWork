@@ -1,33 +1,14 @@
-package com.liuyao.dmo;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
+package com.liuyao.dto;
 
 /**
- * Created by xiaoliu on 2017/5/15.
+ * Created by xiaoliu on 2017/5/16.
  */
+public class UserLoginDto {
 
-@Entity
-@Table(name = "user_login_info")
-public class UserLoginDmo {
-
-    @Id
-    @GenericGenerator(name = "id_gen",strategy = "identity")
-    @GeneratedValue(generator = "id_gen")
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "user_id",length = 19,nullable = false)
     private Long userId;
-
-    @Column(name = "password",length = 128,nullable = false)
     private String password;
-
-    @Column(name = "open_id")
     private long openId;
-
-    @Column(name = "status",length = 2, nullable = false)
     private String status;
 
     public Long getId() {
@@ -68,5 +49,16 @@ public class UserLoginDmo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "UserLoginDto{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", password='" + password + '\'' +
+                ", openId=" + openId +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

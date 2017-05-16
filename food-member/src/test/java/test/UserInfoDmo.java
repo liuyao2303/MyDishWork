@@ -20,7 +20,8 @@ public class UserInfoDmo {
     @Column(name = "user_id")
     private Integer userId;
 
-    @OneToOne(targetEntity = UserLoginDmo.class,mappedBy = "userInfoDmo")
+    @OneToOne(targetEntity = UserLoginDmo.class)
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private UserLoginDmo userLoginDmo;
 
     @Column(name = "user_name")
@@ -104,4 +105,19 @@ public class UserInfoDmo {
     public void setUserStatus(String userStatus) {
         this.userStatus = userStatus;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfoDmo{" +
+                "userId=" + userId +
+                ", userLoginDmo=" + userLoginDmo +
+                ", userName='" + userName + '\'' +
+                ", sex='" + sex + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", addr='" + addr + '\'' +
+                ", age=" + age +
+                ", userStatus='" + userStatus + '\'' +
+                '}';
+    }
+
 }

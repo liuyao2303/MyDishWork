@@ -8,6 +8,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 /**
  * Unit test for simple App.
  */
@@ -42,8 +44,10 @@ public class AppTest extends TestCase {
         SessionFactory sf = cfg.buildSessionFactory();
         Session ss = sf.openSession();
         Transaction tx = sf.getCurrentSession().beginTransaction();
-
-        System.out.println("111111");
+        List obj = ss.createQuery("select U from UserInfoDmo U left join U.userLoginDmo where U.id = 1 ").list();
+        for(Object o : obj) {
+            System.out.println(o);
+        }
         tx.commit();
     }
 

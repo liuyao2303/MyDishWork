@@ -4,11 +4,21 @@ package com.liuyao.dto;
  * Created by xiaoliu on 2017/5/12.
  */
 public class UserInfoDto {
-    public String addr;
-    public Integer age;
-    public String phoneNumber;
-    public String sex;
-    public String userName;
+    private long userId;
+    private String addr;
+    private Integer age;
+    private String phoneNumber;
+    private String sex;
+    private String userName;
+    private String status;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public String getAddr() {
         return addr;
@@ -48,5 +58,13 @@ public class UserInfoDto {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
