@@ -31,7 +31,7 @@ public class ServiceTraceInceptor implements MethodInterceptor, Ordered {
 			result = pjp.proceed();
 		} catch (Throwable ex) {
 			if(ex instanceof AppException) {
-				throw new AppException(ex);
+				throw new AppException(((AppException) ex).getSuccess(),ex.getMessage());
 			}else {
 				logger.debug(ex.toString());
 				Result r = new Result(false,"DATA_ACCESS_EXCEPTION","DATA_ACCESS_EXCEPTION");

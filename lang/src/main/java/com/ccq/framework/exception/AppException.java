@@ -19,6 +19,9 @@ public class AppException extends RuntimeException{
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
+	public AppException(AppException a) {
+		this(a.getSuccess(),a.getMessage());
+	}
 	public AppException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
