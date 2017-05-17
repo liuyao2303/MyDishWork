@@ -19,6 +19,19 @@
       <artifactId>food-member</artifactId>
       <version>1.0.0</version>
     </dependency>
+    <dependency>
+      <groupId>com.liuyao</groupId>
+      <artifactId>lang</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+
+    <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>3.2.4</version>
+    </dependency>
 
 
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->

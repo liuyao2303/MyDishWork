@@ -1,5 +1,6 @@
 package com.liuyao.service.impl;
 
+import com.ccq.framework.annotation.ServiceTrace;
 import com.liuyao.dao.intf.UserInfoDao;
 import com.liuyao.dmo.UserInfoDmo;
 import com.liuyao.dmo.UserLoginDmo;
@@ -18,6 +19,7 @@ import java.util.List;
  * Created by xiaoliu on 2017/5/12.
  */
 @Service
+@ServiceTrace
 public class UserInfoServiceImpl implements UserInfoService{
 
     @Autowired

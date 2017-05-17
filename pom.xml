@@ -23,5 +23,6 @@
     <module>food-pay</module>
     <module>cancle</module>
     <module>dish-war</module>
+	<module>lang</module>
   </modules>
 </project>

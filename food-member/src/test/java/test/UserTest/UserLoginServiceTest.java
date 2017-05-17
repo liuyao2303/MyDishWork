@@ -1,6 +1,6 @@
-package test;
+package test.UserTest;
 
-import com.liuyao.constant.Result;
+import com.ccq.framework.lang.Result;
 import com.liuyao.dto.UserLoginDto;
 import com.liuyao.service.intf.UserLoginService;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * Created by xiaoliu on 2017/5/16.
  */
-@ContextConfiguration(locations = "classpath:application-context.xml")
+@ContextConfiguration(locations = "classpath:application-*.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserLoginServiceTest {
 
@@ -28,6 +28,12 @@ public class UserLoginServiceTest {
     @Test
     public void userLogin() {
         Result r = userLoginService.loginCheck("18252063065","sdsdsdsd");
+        System.out.println(r);
+    }
+
+    @Test
+    public void testPwdAlter() {
+        Result r = userLoginService.alterPassword(10L,"hello world");
         System.out.println(r);
     }
 }

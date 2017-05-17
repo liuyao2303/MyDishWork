@@ -1,5 +1,7 @@
 package com.liuyao.dao.impl;
 
+import com.ccq.framework.exception.AppException;
+import com.liuyao.constant.Result;
 import com.liuyao.dao.intf.UserLoginDao;
 import com.liuyao.dmo.UserLoginDmo;
 import org.hibernate.Criteria;
@@ -40,7 +42,52 @@ public class UserLoginDaoImpl implements UserLoginDao{
                 return dmo;
             }
         }catch (Exception e) {
-            return null;
+            /* 重新抛出运行时包装一场，保证当前的痴线错误的事物能够准确回滚 */
+            throw new AppException(e);
+        }
+    }
+
+    /* 更新 用户密码信息 */
+    public Long updatePassword(Long userId, String pwd) {
+        Session ss = sf.getCurrentSession();
+
+        UserLoginDmo dmo = getUserLoginByProperty("userId",userId);
+
+        if(dmo == null) {
+            throw new AppException(false,"该用户不存在！");
+        }
+
+        UserLoginDmo userLogin = (UserLoginDmo) ss.load(UserLoginDmo.class,dmo.getId());
+        if(userLogin == null) {
+            return -1L;
+        }else {
+            userLogin.setPassword(pwd);
+            try {
+                ss.saveOrUpdate(userLogin);
+            }catch (Exception e) {
+                throw new AppException(e);
+            }
+            return 1L;
+        }
+    }
+
+
+    /*tools*/
+    public UserLoginDmo getUserLoginByProperty(String prop,Object arg) {
+        try {
+            Session ss = sf.getCurrentSession();
+            Criteria c = ss.createCriteria(UserLoginDmo.class);
+            c.add(Restrictions.eq(prop,arg));
+            List<UserLoginDmo> dmos = c.list();
+            if(dmos.size() < 1) {
+                return null;
+            }else {
+                UserLoginDmo dmo = (UserLoginDmo) dmos.get(0);
+                return dmo;
+            }
+        }catch (Exception e) {
+            /* 重新抛出运行时包装一场，保证当前的痴线错误的事物能够准确回滚 */
+            throw new AppException(e);
         }
     }
 }

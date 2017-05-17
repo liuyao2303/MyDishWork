@@ -1,6 +1,6 @@
 package com.liuyao.service.intf;
 
-import com.liuyao.constant.Result;
+import com.ccq.framework.lang.Result;
 import com.liuyao.dto.UserLoginDto;
 
 /**
@@ -8,9 +8,13 @@ import com.liuyao.dto.UserLoginDto;
  */
 public interface UserLoginService {
 
-    public Result loginCheck(String phone,String password) ;
+    public Result loginCheck(String phone, String password) ;
 
     public Long addUserLoginInfo(UserLoginDto userLogin);
 
     public UserLoginDto getUserLoginInfo(Long userId) ;
+
+    public Result alterPassword(Long userId, String pwd) ;
+
+    public Result alterPassword(String userName,String pwd);
 }

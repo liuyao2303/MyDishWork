@@ -1,14 +1,11 @@
-package test;
+package test.UserTest;
 
 import com.liuyao.constant.UserStatus;
-import com.liuyao.dmo.*;
-import com.liuyao.dmo.UserInfoDmo;
 import com.liuyao.dto.UserInfoDto;
 import com.liuyao.dto.UserLoginDto;
 import com.liuyao.service.intf.UserInfoService;
 import com.liuyao.service.intf.UserLoginService;
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,7 +16,7 @@ import java.util.List;
 /**
  * Created by xiaoliu on 2017/5/16.
  */
-@ContextConfiguration(locations = "classpath:application-context.xml")
+@ContextConfiguration(locations = "classpath:application-db.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserInfoServiceTest {
 
@@ -70,6 +67,11 @@ public class UserInfoServiceTest {
         for(UserInfoDto dto : users) {
             System.out.println(dto);
         }
+    }
+
+    @org.junit.Test
+    public void md5 () {
+        System.out.println(DigestUtils.md2Hex("lyhh2303"));
     }
 
 }
