@@ -33,7 +33,7 @@ public class UserLoginServiceTest {
 
     @Test
     public void testPwdAlter() {
-        Result r = userLoginService.alterPassword(10L,"hello world");
+        Result r = userLoginService.alterPassword("liuyao","hello world");
         System.out.println(r);
     }
 }
