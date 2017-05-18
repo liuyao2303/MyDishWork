@@ -7,7 +7,6 @@ import com.liuyao.dao.intf.UserLoginDao;
 import com.liuyao.dmo.UserInfoDmo;
 import com.liuyao.dmo.UserLoginDmo;
 import com.liuyao.dto.UserLoginDto;
-import com.liuyao.service.intf.UserInfoService;
 import com.liuyao.service.intf.UserLoginService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.BeanUtils;
@@ -81,6 +80,11 @@ public class UserLoginServiceImpl implements UserLoginService{
     /* 根据用户名来更改用户密码 */
     @Transactional
     public Result alterPassword(String userName, String pwd) {
-        return null;
+
+        UserInfoDmo user = userInfoDao.getUserInfo("userName",userName);
+        if(user == null) {
+            return new Result(false,"该用户不存在");
+        }
+        return alterPassword(user.getUserId(),pwd);
     }
 }

@@ -8,5 +8,6 @@ import com.liuyao.dmo.UserLoginDmo;
 public interface UserLoginDao {
     public Long addUserLoginInfo(UserLoginDmo loginDmo) ;
     public UserLoginDmo getUserLoginInfo(Long userId) ;
+    public UserLoginDmo getUserLoginInfo(String userName) ;
     public Long updatePassword(Long userId,String pwd);
 }

@@ -3,6 +3,7 @@ package com.liuyao.dao.impl;
 import com.ccq.framework.exception.AppException;
 import com.liuyao.constant.Result;
 import com.liuyao.dao.intf.UserLoginDao;
+import com.liuyao.dmo.UserInfoDmo;
 import com.liuyao.dmo.UserLoginDmo;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -40,6 +41,26 @@ public class UserLoginDaoImpl implements UserLoginDao{
             }else {
                 UserLoginDmo dmo = (UserLoginDmo) r.get(0);
                 return dmo;
+            }
+        }catch (Exception e) {
+            /* 重新抛出运行时包装一场，保证当前的痴线错误的事物能够准确回滚 */
+            throw new AppException(e);
+        }
+    }
+
+    /* 根据用户id，查询用户的登陆信息表 */
+    @Deprecated
+    public UserLoginDmo getUserLoginInfo(String userName) {
+        try {
+            Session ss = sf.getCurrentSession();
+            Criteria c = ss.createCriteria(UserInfoDmo.class);
+            c.add(Restrictions.eq("userName",userName));
+            List r = c.list();
+            if(r.size() < 1) {
+                return null;
+            }else {
+                UserInfoDmo dmo = (UserInfoDmo) r.get(0);
+                return null;
             }
         }catch (Exception e) {
             /* 重新抛出运行时包装一场，保证当前的痴线错误的事物能够准确回滚 */

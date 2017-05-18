@@ -14,3 +14,13 @@ create table user_info
 )
 ;
 
+
+
+create table catagory_info (
+  id bigint not null auto_increment,
+  createTime datetime(6),
+  order bigint,
+  status varchar(2),
+  title varchar(64),
+  primary key (id)
+) ENGINE=InnoDB
