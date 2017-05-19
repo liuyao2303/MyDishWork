@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * Created by xiaoliu on 2017/5/18.
  */
 @Repository("DishDetailInfoDao")
+@Transactional
 public class DishDetailDaoImpl implements DishDetailInfoDao{
 
     @Autowired
@@ -36,14 +38,26 @@ public class DishDetailDaoImpl implements DishDetailInfoDao{
 
     /* 根据查询条件，查询DishList列表，一般只根据catagoryID和DishStatus来进行查询 */
     public List<DishDetailInfoDmo> getDishDetailList(DishDetailInfoDmo con) {
-        Criteria c = sf.getCurrentSession().createCriteria(DishDetailInfoDmo.class);
+        Session ss = sf.getCurrentSession();
+        Criteria c = sf.getCurrentSession().
+                createCriteria(DishDetailInfoDmo.class);
         if(con.getCatagoryId() != null) {
             c.add(Restrictions.eq("catagoryId",con.getCatagoryId()));
+        }
+        if(con.getDescription() != null) {
+            c.add(Restrictions.eq("description",con.getDescription()));
+        }
+        if(con.getDishName() != null) {
+            c.add(Restrictions.eq("dishName",con.getDishName()));
+        }
+        if(con.getId() != null) {
+            c.add(Restrictions.eq("id",con.getId()));
         }
         if(con.getDishStatus() != null) {
             c.add(Restrictions.eq("dishStatus",con.getDishStatus()));
         }
-        return c.list();
+        List<DishDetailInfoDmo> data = c.list();
+        return data;
     }
 
     /* 根据id来查询菜单信息 */

@@ -27,6 +27,11 @@
                         <beans:value>application/json;charset=UTF-8</beans:value>
                     </beans:list>
                 </beans:property>
+                <beans:property name="features">
+                    <beans:list>
+                        <beans:value>WriteDateUseDateFormat</beans:value>
+                    </beans:list>
+                </beans:property>
             </beans:bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
