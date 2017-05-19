@@ -30,6 +30,10 @@ public class ServiceTraceInceptor implements MethodInterceptor, Ordered {
 		try {
 			result = pjp.proceed();
 		} catch (Throwable ex) {
+//			获取返回类型
+//			Signature signature =  proceedingJoinPoint.getSignature();
+//			Class returnType = ((MethodSignature) signature).getReturnType();
+
 			if(ex instanceof AppException) {
 				throw new AppException(((AppException) ex).getSuccess(),ex.getMessage());
 			}else {

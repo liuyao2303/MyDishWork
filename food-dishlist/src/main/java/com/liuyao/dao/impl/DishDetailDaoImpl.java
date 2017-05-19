@@ -11,13 +11,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by xiaoliu on 2017/5/18.
  */
+@Repository("DishDetailInfoDao")
 public class DishDetailDaoImpl implements DishDetailInfoDao{
+
     @Autowired
     private SessionFactory sf;
 
@@ -31,6 +34,7 @@ public class DishDetailDaoImpl implements DishDetailInfoDao{
         return (Long) ss.save(dish);
     }
 
+    /* 根据查询条件，查询DishList列表，一般只根据catagoryID和DishStatus来进行查询 */
     public List<DishDetailInfoDmo> getDishDetailList(DishDetailInfoDmo con) {
         Criteria c = sf.getCurrentSession().createCriteria(DishDetailInfoDmo.class);
         if(con.getCatagoryId() != null) {
@@ -42,22 +46,34 @@ public class DishDetailDaoImpl implements DishDetailInfoDao{
         return c.list();
     }
 
+    /* 根据id来查询菜单信息 */
     public DishDetailInfoDmo getDishInfoDmo(Long id) {
         return (DishDetailInfoDmo) sf.getCurrentSession()
                 .load(DishDetailInfoDmo.class,id);
     }
 
+    /* 更新entity信息 */
     public void update(DishDetailInfoDmo entity) {
         Session ss = sf.getCurrentSession();
         DishDetailInfoDmo dmo = (DishDetailInfoDmo) ss.
                 load(DishDetailInfoDmo.class,entity.getCatagoryId());
+        if(dmo == null) {
+            throw new AppException(false,"DishDetail not exists");
+        }
         BeanUtils.copyProperties(entity,dmo);
         ss.saveOrUpdate(dmo);
     }
 
+    /* 删除那个信息，软删除 */
     public void delete(Long id) {
         Session ss = sf.getCurrentSession();
         DishDetailInfoDmo dmo = (DishDetailInfoDmo) ss.load(DishDetailInfoDmo.class,id);
+
+        /* 如果该部分的信息不存在，则抛出自定义一次，为了事物回滚，同时业务层的拦截器会做统一
+        的封装 */
+        if(dmo == null) {
+            throw new AppException(false,"DishDetail not exists");
+        }
         dmo.setDishStatus(DishStatus.DISH_STATUS_DELETE);
         update(dmo);
     }
