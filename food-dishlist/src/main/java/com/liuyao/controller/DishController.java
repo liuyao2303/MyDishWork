@@ -1,14 +1,12 @@
 package com.liuyao.controller;
 
+import com.ccq.framework.lang.Result;
 import com.liuyao.dmo.DishDetailInfoDmo;
 import com.liuyao.dto.DishDetailInfoDto;
 import com.liuyao.service.intf.DishDetailInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,13 +21,30 @@ public class DishController {
     private DishDetailInfoService dishDetailInfoService;
 
     @ResponseBody
-    @RequestMapping("{id}")
-    public List<DishDetailInfoDto> getDishDetail(@PathVariable("id") Long id) {
+    @RequestMapping("/cata/{id}")
+    public List<DishDetailInfoDto> getDishDetails(@PathVariable("id") Long id) {
         return dishDetailInfoService.getDishDetails(id);
     }
+
+    @ResponseBody
+    @RequestMapping("/detail/{id}")
+    public DishDetailInfoDto getDishDetail(@PathVariable("id") Long id) {
+        DishDetailInfoDto data = dishDetailInfoService.getDishDetail(id);
+        if(data == null)
+            return new DishDetailInfoDto();
+        else
+            return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/dish/updatetitle/{id}",method = RequestMethod.POST)
+    public Result updateTitle(@PathVariable("id") Long id,String title) {
+        return dishDetailInfoService.updateTitle(id,title);
+    }
+
 //    @ResponseBody
-//    @RequestMapping("/detail")
-//    public List<DishDetailInfoDto> getDishDetail() {
-//        return dishDetailInfoService.getDishDetails(1L);
+//    @RequestMapping("test")
+//    public Result testTwo() {
+//        return dishDetailInfoService.testInsertTwo();
 //    }
 }

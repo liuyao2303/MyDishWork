@@ -62,8 +62,13 @@ public class DishDetailDaoImpl implements DishDetailInfoDao{
 
     /* 根据id来查询菜单信息 */
     public DishDetailInfoDmo getDishInfoDmo(Long id) {
-        return (DishDetailInfoDmo) sf.getCurrentSession()
-                .load(DishDetailInfoDmo.class,id);
+        List<DishDetailInfoDmo> data = sf.getCurrentSession()
+                .createCriteria(DishDetailInfoDmo.class)
+                .add(Restrictions.eq("id",id))
+                .setMaxResults(1)
+                .list();
+        if(data.size() < 1) return null;
+        else return data.get(0);
     }
 
     /* 更新entity信息 */

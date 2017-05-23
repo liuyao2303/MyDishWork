@@ -9,4 +9,5 @@ public class DishStatus {
     public static String DISH_STATUS_USING = "10";
     public static String DISH_STATUS_UNSHELVE = "01";
     public static String DISH_STATUS_REVIEWING = "00";
+    public static String DISH_STATUS_STOPSELL="12";
 }

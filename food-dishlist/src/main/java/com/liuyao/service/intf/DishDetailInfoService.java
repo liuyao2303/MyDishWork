@@ -12,6 +12,9 @@ import java.util.List;
  */
 public interface DishDetailInfoService {
 
+//    public Result testInsertTwo() ;
+
+
     /* 根据分类id查询二级菜单信息 */
     public List<DishDetailInfoDto> getDishDetails(Long cataId) ;
 

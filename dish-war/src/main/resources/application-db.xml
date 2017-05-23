@@ -77,6 +77,6 @@
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+    <tx:annotation-driven transaction-manager="transactionManager" order="1024"></tx:annotation-driven>
 
 </beans>

@@ -25,4 +25,6 @@ public class CatagoryIController {
     public List<CatagoryInfoDto> getAll() {
         return catagoryInfoService.getCatagoryList();
     }
+
+
 }
